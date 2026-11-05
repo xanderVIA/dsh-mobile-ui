@@ -1,8 +1,26 @@
 # dsh-mobile-ui
 
-**DSH 手机端界面增强** —— 给 `dsh-plugin-mobile-bridge` 的移动端页面做的一层界面改造：
+**DSH 手机端界面增强** —— 给 `dsh-plugin-mobile-bridge` 的手机页做的一层界面改造：
 把「一个能用但难受的网页」变成「像豆包 / DeepSeek 那样顺手的手机会话界面」。
 
+> 本项目**不是**独立应用。它是一份注入脚本 + 一套样式/脚本，作用在别人的插件页面上。
+
+## 基于什么项目改的
+
+| 项 | 说明 |
+|---|---|
+| **宿主** | [DSH Desktop](https://github.com/ijry/DeepSeek-Harness-Desktop-Ultra)（引擎 `@deepseek-ai/dsh`） |
+| **改造目标** | 第三方插件 **`dsh-plugin-mobile-bridge`** —— 它把 DSH 的会话能力暴露成手机网页，让手机能远程驱动桌面端的 agent |
+| **本补丁适配的版本** | **v5.2.0**（按它的 `lib/mobile.html` 结构写的） |
+| **改的是哪个文件** | 插件的 `lib/mobile.html`（前端页面），**不动** `lib/index.js`（后端桥） |
+| **原插件在哪** | npm：<https://www.npmjs.com/package/dsh-plugin-mobile-bridge><br>上游仓库：<https://github.com/ijry/DeepSeek-Harness-Desktop-Ultra>（`plugins/dsh-plugin-mobile-bridge`） |
+
+关于版本：npm 上同名包的当前发布版是 `0.1.0`（署名 ijry），而我本机装的是 **5.2.0**（`package.json` 里 author/repository 字段被去掉了）。两者版本号差很远，**本补丁的源码级改动（`blockHtml` 等）是按 5.2.0 的文件内容定位的**，别的版本可能需要重新对一遍锚点。
+
+## 为什么用注入而不是 fork
+
+插件的页面是它自己打包的，一旦升级就被覆盖；fork 一份又要一直跟上游同步。
+所以这里的做法是：**保留插件原样，只往 `mobile.html` 末尾追加一段 style + script**，靠"幂等注入 + 注入前语法自检"保证可重复、可回滚。
 > 不改宿主 DSH，不改插件的后端逻辑，只针对它吐出来的 `lib/mobile.html` 做注入。
 > 插件升级后跑一次 `apply.ps1` 即可全部恢复。
 
@@ -96,6 +114,7 @@ $Target = '<插件安装目录>\lib\mobile.html'
 ## License
 
 MIT
+
 
 
 
