@@ -6,9 +6,9 @@
 > 不改宿主 DSH，不改插件的后端逻辑，只针对它吐出来的 `lib/mobile.html` 做注入。
 > 插件升级后跑一次 `apply.ps1` 即可全部恢复。
 
-![抽屉](docs/1-drawer.png)
+![抽屉](docs/1-drawer.jpg)
 
-![对话](docs/2-chat.png)
+![对话](docs/2-chat.jpg)
 
 ## 做了什么
 
@@ -26,7 +26,7 @@
 - 图片一律缩略图（助手 ≤150px、自己发的 ≤110×150），`object-fit: contain` 不变形
 - 表格窄屏卡片化（表头变成单元格上的小灰标）
 
-![主题](docs/3-theme.png)
+![主题](docs/3-theme.jpg)
 
 ### 运行态
 - 输入卡里显示 `深度求索中，用时 m:ss`
@@ -96,6 +96,7 @@ $Target = '<插件安装目录>\lib\mobile.html'
 ## License
 
 MIT
+
 
 
 
